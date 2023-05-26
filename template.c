@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:33:22 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 18:14:09 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 18:16:21 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-static char *include_guard(char *name) {
-  char *guard = calloc(strlen(name) + 5 + 1, sizeof(char));
-  if (!guard) return (NULL);
-  int i = 0;
-  while (name && name[i]) {
-    guard[i] = toupper(name[i]);
-    i++;
-  }
-  strcat(guard, "_HPP_");
-  return (guard);
-}
+static char *include_guard(char *name);
 
 void create_hpp(int fd, char *name) {
   char *guard = include_guard(name);
-  if (!guard) return ;
+  if (!guard) return;
   dprintf(fd, "#ifndef %s\n", guard);
   dprintf(fd, "#define %s\n", guard);
   dprintf(fd, "\n");
@@ -62,4 +52,16 @@ void create_cpp(int fd, char *name) {
   dprintf(fd, "  (void)obj;\n");
   dprintf(fd, "  return *this;\n");
   dprintf(fd, "}\n");
+}
+
+static char *include_guard(char *name) {
+  char *guard = calloc(strlen(name) + 5 + 1, sizeof(char));
+  if (!guard) return (NULL);
+  int i = 0;
+  while (name && name[i]) {
+    guard[i] = toupper(name[i]);
+    i++;
+  }
+  strcat(guard, "_HPP_");
+  return (guard);
 }
