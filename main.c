@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:40:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/30 13:03:36 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 17:27:58 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char *argv[])
 	char	*cpp_name;
 	int		cpp_fd;
 	int		hpp_fd;
+  int   out_fd = dup(STDOUT_FILENO);
 
 	if (argc != 2)
 	{
@@ -59,5 +60,7 @@ int	main(int argc, char *argv[])
 	create_cpp(cpp_fd, argv[1]);
 	close(cpp_fd);
 	close(hpp_fd);
+  dup2(out_fd, STDOUT_FILENO);
+  close(out_fd);
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:33:22 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 14:29:44 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 17:39:03 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "template.h"
+#include <stdio.h>
 
 static char to_upper(char c)
 {
@@ -41,52 +42,35 @@ static char *include_guard(char *name)
 void	create_hpp(int fd, char *name)
 {
   char  *guard = include_guard(name);
-	ft_putstr_fd("#ifndef ", fd);
-  ft_putstr_fd(guard, fd);
-  ft_putstr_fd("\n#define ", fd);
-  ft_putstr_fd(guard, fd);
-	ft_putstr_fd("\n\nclass ", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("\n{\n\tpublic:\n\t\t", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("();\n\t\t~", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("();\n\t\t", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("(", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd(" const &obj);\n\t\t", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("& operator=(const ", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("& obj);\n\tprivate:\n\n};", fd);
-  ft_putstr_fd("\n\n#endif //", fd);
-  ft_putstr_fd(guard, fd);
+	dprintf(fd, "#ifndef %s\n", guard);
+	dprintf(fd, "#define %s\n", guard);
+  dprintf(fd, "\n");
+  dprintf(fd, "class %s {\n", name);
+  dprintf(fd, " public:\n");
+  dprintf(fd, "  %s();\n", name);
+  dprintf(fd, "  ~%s();\n", name);
+  dprintf(fd, "  %s(%s const& obj);\n", name, name);
+  dprintf(fd, "  %s& operator=(const %s& obj);\n", name, name);
+  dprintf(fd, "\n");
+  dprintf(fd, " private:\n");
+  dprintf(fd, "};\n");
+  dprintf(fd, "\n");
+	dprintf(fd, "#endif  // %s\n", guard);
   free(guard);
 }
+
 void	create_cpp(int fd, char *name)
 {
-	ft_putstr_fd("#include \"", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd(".hpp\"\n\n", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("::", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("()\n{\n}\n\n", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("::~", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("()\n{\n}\n\n",fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("& ",fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("::operator=(const ", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("&obj)\n{\n\t//add rule for copy assignment constructor\n\treturn (*this);\n}\n\n", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("::", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd("(", fd);
-	ft_putstr_fd(name, fd);
-	ft_putstr_fd(" const &obj)\n{\n\t*this = obj;\n}\n", fd);
+	dprintf(fd, "#include \"%s.hpp\"\n", name);
+  dprintf(fd, "\n");
+  dprintf(fd, "%s::%s() {}\n", name, name);
+  dprintf(fd, "\n");
+  dprintf(fd, "%s::~%s() {}\n", name, name);
+  dprintf(fd, "\n");
+  dprintf(fd, "%s::%s(%s const& obj) { *this = obj; }\n", name, name, name);
+  dprintf(fd, "\n");
+  dprintf(fd, "%s& %s::operator=(const %s& obj) {\n", name, name, name);
+  dprintf(fd, "  (void)obj;\n");
+  dprintf(fd, "  return *this;\n");
+  dprintf(fd, "}\n");
 }
