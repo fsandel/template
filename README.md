@@ -21,7 +21,7 @@ To use the Class Template Generator, ensure that you have the following software
 
 1. Clone this repository to your local machine:
 ```
-git clone https://github.com/your-username/class-template-generator.git
+git clone https://github.com/fsandel/template template
 ```
 
 2. Navigate to the project directory:
@@ -63,11 +63,11 @@ This will create `MyClass.cpp` and `MyClass.hpp` files in the current directory,
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://opensource.org/license/mit/).
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the [GitHub repository](https://github.com/your-username/class-template-generator).
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the [GitHub repository](https://github.com/fsandel/template).
 
 ## Acknowledgements
 
@@ -75,9 +75,6 @@ The Class Template Generator was inspired by the need for a quick and standardiz
 
 ## Contact
 
-For any questions or inquiries, feel free to reach out to the project maintainer at [your-email@example.com](mailto:your-email@example.com).
+For any questions or inquiries, feel free to reach out to the project maintainer at [florian@sandel.email](mailto:florian@sandel.email).
 
 Happy coding!
-
-
-
