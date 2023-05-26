@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:40:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 17:56:08 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 18:11:42 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@ int main(int argc, char *argv[]) {
     return (2);
   }
   char *cpp_name = strjoin(argv[1], ".cpp");
+  if (!cpp_name) {
+    dprintf(STDERR_FILENO, "First allocation failed\n");
+    return (6);
+  }
   char *hpp_name = strjoin(argv[1], ".hpp");
+  if (!hpp_name) {
+    dprintf(STDERR_FILENO, "Second allocation failed\n");
+    return (7);
+  }
   if (!access(cpp_name, F_OK) || !access(hpp_name, F_OK)) {
     dprintf(STDERR_FILENO, "File already exists\n");
     free(cpp_name);

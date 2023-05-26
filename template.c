@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:33:22 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 18:07:24 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 18:14:09 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static char *include_guard(char *name) {
   char *guard = calloc(strlen(name) + 5 + 1, sizeof(char));
+  if (!guard) return (NULL);
   int i = 0;
   while (name && name[i]) {
     guard[i] = toupper(name[i]);
     i++;
   }
-  guard[i++] = '_';
-  guard[i++] = 'H';
-  guard[i++] = 'P';
-  guard[i++] = 'P';
-  guard[i++] = '_';
-  guard[i++] = 0;
+  strcat(guard, "_HPP_");
   return (guard);
 }
 
 void create_hpp(int fd, char *name) {
   char *guard = include_guard(name);
+  if (!guard) return ;
   dprintf(fd, "#ifndef %s\n", guard);
   dprintf(fd, "#define %s\n", guard);
   dprintf(fd, "\n");
