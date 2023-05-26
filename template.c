@@ -6,26 +6,21 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:33:22 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 17:50:30 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/05/26 18:07:24 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "template.h"
 
+#include <ctype.h>
 #include <stdio.h>
-
-static char to_upper(char c) {
-  if (c >= 'a' && c <= 'z')
-    return (c - 'a' + 'A');
-  else
-    return (c);
-}
+#include <stdlib.h>
 
 static char *include_guard(char *name) {
-  char *guard = malloc(ft_strlen(name) + 5 + 1);
+  char *guard = calloc(strlen(name) + 5 + 1, sizeof(char));
   int i = 0;
   while (name && name[i]) {
-    guard[i] = to_upper(name[i]);
+    guard[i] = toupper(name[i]);
     i++;
   }
   guard[i++] = '_';
