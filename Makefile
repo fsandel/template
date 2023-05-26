@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 10:30:26 by fsandel           #+#    #+#              #
-#    Updated: 2023/05/26 17:40:44 by fsandel          ###   ########.fr        #
+#    Updated: 2023/05/26 17:47:08 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ SRC				=	main.c template.c utils.c
 OBJ				=	$(SRC:.c=.o)
 CC				=	cc
 CFLAGS			=	
+
+install:
+	make all
+	make clean
+	@echo >> ~/.zshrc "alias template=$(PWD)/$(NAME)"
 
 all:	$(NAME)
 
@@ -33,7 +38,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
 
 
 $(LIBFT):
