@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:33:22 by fsandel           #+#    #+#             */
-/*   Updated: 2023/05/26 18:16:21 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/06/13 09:12:42 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void create_hpp(int fd, char *name) {
   dprintf(fd, " public:\n");
   dprintf(fd, "  %s();\n", name);
   dprintf(fd, "  ~%s();\n", name);
-  dprintf(fd, "  %s(%s const& obj);\n", name, name);
+  dprintf(fd, "  %s(const %s & obj);\n", name, name);
   dprintf(fd, "  %s& operator=(const %s& obj);\n", name, name);
   dprintf(fd, "\n");
   dprintf(fd, " private:\n");
@@ -46,7 +46,7 @@ void create_cpp(int fd, char *name) {
   dprintf(fd, "\n");
   dprintf(fd, "%s::~%s() {}\n", name, name);
   dprintf(fd, "\n");
-  dprintf(fd, "%s::%s(%s const& obj) { *this = obj; }\n", name, name, name);
+  dprintf(fd, "%s::%s(const %s & obj) { *this = obj; }\n", name, name, name);
   dprintf(fd, "\n");
   dprintf(fd, "%s& %s::operator=(const %s& obj) {\n", name, name, name);
   dprintf(fd, "  (void)obj;\n");
